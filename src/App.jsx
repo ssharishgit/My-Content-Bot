@@ -23,11 +23,17 @@ function App() {
     setIsSave(true)
   }
 
-  const handleSave = () => {
-    if (output) {
-      setLatestData(output)
-      setInputType('json')
+  const handleSave = (type, data) => {
+    if (type && type === 'json') {
+      setOutput({ type, data })
+      setLatestData({ type, data })
+    } else {
+      if (output) {
+        setLatestData(output)
+        setInputType('json')
+      }
     }
+    
   }
 
   return (
@@ -37,7 +43,7 @@ function App() {
         <div className="flex flex-col lg:flex-row gap-4 h-full">
 
           <div className="flex flex-col flex-grow lg:w-[65%] h-full">
-            <OutputArea content ={output} onSave={handleSave} saveButton={isSave} />
+            <OutputArea content ={output} saveIt={handleSave} saveButton={isSave} />
             <UserEntry inputType={inputType} setInputType={setInputType} onSubmit={handleSubmit} onReset={handleReset} />
           </div>
 
